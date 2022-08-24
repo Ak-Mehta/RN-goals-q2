@@ -65,6 +65,7 @@ const App = () => {
           height: '100%',
           alignItems: 'center',
           justifyContent: 'center',
+          backgroundColor: 'white',
         }}>
         <Text style={styles.sectionTitle}>RN Quarter Goals 2</Text>
       </View>
@@ -80,8 +81,8 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 24,
     fontWeight: '600',
-    color: 'white',
     textAlign: 'center',
+    color: '#000',
   },
   sectionDescription: {
     marginTop: 8,
