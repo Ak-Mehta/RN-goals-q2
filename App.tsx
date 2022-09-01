@@ -10,85 +10,76 @@
 
 import React, {type PropsWithChildren} from 'react';
 import {
+  Alert,
+  Button,
   SafeAreaView,
   StatusBar,
   StyleSheet,
   Text,
+  TouchableOpacity,
   useColorScheme,
   View,
 } from 'react-native';
-
-import {Colors} from 'react-native/Libraries/NewAppScreen';
-
-const Section: React.FC<
-  PropsWithChildren<{
-    title: string;
-  }>
-> = ({children, title}) => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
+import RazorpayCheckout from 'react-native-razorpay';
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
+  const onPay = () => {
+    let options = {
+      description: 'Samsung Charger Buy',
+      image: 'https://i.imgur.com/3g7nmJC.png',
+      currency: 'INR',
+      key: 'rzp_test_dmIrdI3U7fcCe0', // Your api key
+      amount: '1000',
+      name: 'Akki',
+      prefill: {
+        email: 'abc@razorpay.com',
+        contact: '8989898978',
+        name: 'RazorPay Payment Integration Test ',
+      },
+      theme: {color: '#F37254'},
+      // to hide payment options
+      method: {
+        netbanking: false,
+        card: true,
+        wallet: false,
+        upi: true,
+        paylater: false,
+      },
+    };
+    RazorpayCheckout.open(options)
+      .then((data: any) => {
+        // handle success
+        Alert.alert(`Success: ${data.razorpay_payment_id}`);
+      })
+      .catch((error: any) => {
+        // handle failure
+        Alert.alert(`Error: ${error.code} | ${error.description}`);
+      });
   };
-
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <View
-        style={{
-          height: '100%',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-        <Text style={styles.sectionTitle}>RN Quarter Goals 2</Text>
-      </View>
+    <SafeAreaView style={styles.sectionContainer}>
+      <TouchableOpacity onPress={onPay} style={styles.btn}>
+        <Text>Pay</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: 'white',
-    textAlign: 'center',
+  btn: {
+    width: 60,
+    height: 60,
+    borderWidth: 2,
+    borderRadius: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'pink',
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  //
 });
 
 export default App;
