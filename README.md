@@ -4,3 +4,4 @@
 1. SocialAuthentication - google sign in
 2. cardInputForm - common card input component with validation
 3. razorpay - payment gateway integration(RazorPay)
+4. chatApp - Realtime Db & chatApp
