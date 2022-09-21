@@ -10,8 +10,10 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "firebase": "9.6.11",
     "react": "18.0.0",
-    "react-native": "0.69.1"
+    "react-native": "0.69.1",
+    "react-native-gifted-chat": "^1.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
